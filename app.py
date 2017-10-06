@@ -21,6 +21,7 @@ except ImportError:
     import apiai
 
 from process_request import process_request
+from pymessenger.bot import Bot
 
 r = redis.Redis(host='localhost')
 
@@ -43,7 +44,7 @@ def auth():
 	url = req.url
 	parsed = urllib.parse.parse_qs(url)
 	print(parsed)
-	auth_token = parsed['http://12413345.ngrok.io/authorize?account_linking_token'][0]
+	auth_token = parsed['http://9a2a2130.ngrok.io/authorize?account_linking_token'][0]
 	redirect_url = parsed['redirect_uri'][0]
 	return render_template('auth.html', redirect_url=redirect_url)
 	#process_auth(req, auth_token, redirect_url)
@@ -53,6 +54,7 @@ def login():
 	username = request.form.get('username')
 	password = request.form.get('password')
 	redirect_url = request.form.get('redirect_url')+ '&authorization_code='+ username
+	print(redirect_url)
 	if(password == "fizan"):
 		print("---------------")
 		print(redirect_url)
@@ -62,6 +64,28 @@ def login():
 	else:
 		return "Request did not contain redirect_uri and username in the query string"
 	
+@app.route('/mpin/')
+def mpin():
+	return render_template('mpin.html')
+
+@app.route('/mpin_submission', methods=["POST"])
+def mpin_submission():
+	mpin = request.form.get('mpin')
+	print("mpin: " + mpin)
+	return render_template('success1.html')
+
+@app.route('/success')
+def success():
+	req = request
+	url = req.url
+	parsed = urllib.parse.parse_qs(url)
+	psid = parsed.get('http://9a2a2130.ngrok.io/success?psid')[0]
+	print(psid)
+	message = "Money transfer successfull"
+	bot = Bot("EAAb3lzmGmJcBAPTUWrJtcsGTzoHhVHzWpwUbXTHFLZBKJ79XDKZCLflSEkesDeNEcQOOF71Ru1dhvvignYf7Pza7SYxKIhCmMxOF84QrTZAa8igyNp3zCXM3ZC0O8CLS5kx73DZBgZAO4hjrF4ZB96qYWDN6EeUd4QGUGxaHxmdFgZDZD")
+	bot.send_text_message(psid, message)
+	return "OK"
+
 if __name__ == '__main__':
     app.debug = True
     app.run()

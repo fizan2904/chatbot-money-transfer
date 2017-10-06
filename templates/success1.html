@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Success</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<style type="text/css">
+		body {
+			padding-top:25%;
+			position: relative;
+		}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+<body>
+<div style="text-align:center;font-size: 100px">
+<svg width="100px" height="100px" viewBox="670 341 26 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <path d="M671.315706,351.94575 C670.933687,351.552501 670.895587,350.86615 671.216556,350.431757 L671.373509,350.219339 C671.700769,349.776433 672.321427,349.688289 672.76334,350.025172 L677.77841,353.848309 C678.218732,354.18398 678.913991,354.17577 679.344678,353.818898 L693.313686,342.244033 C693.73839,341.892119 694.407557,341.925962 694.800861,342.312303 L694.706566,342.219678 C695.103206,342.609296 695.1032,343.239896 694.711504,343.623314 L679.288432,358.720469 C678.89452,359.106057 678.263494,359.09778 677.883484,358.706598 L671.315706,351.94575 Z" id="Fill-" stroke="none" fill="#0084FF" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h1 style="text-align:center;">Success transfering money.<br>Close the browser to continue.<br>
+</body>
+<script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'Messenger'));
+    window.extAsyncInit = function() {
+        MessengerExtensions.getUserID(function success(uids) {
+            var psid = uids.psid;
+            var link = document.getElementById('samplelink');
+            link.href = 'http://9a2a2130.ngrok.io/success?psid=' + psid;
+        }, function error(err) {
+        });
+    };
+    function closeView(){
+        MessengerExtensions.requestCloseBrowser(function success() {
+            $.post('http://9a2a2130.ngrok.io/success', {"psid": psid})
+      }, function error(err) {
+        	console.log(err)
+      });
+    }
+    </script>
+
+<center>
+    <a id="samplelink" href="#" class="btn btn-primary" role="button" onclick="closeView()">Close browser</a>
+</center>
+</html>

