@@ -44,7 +44,7 @@ def auth():
 	url = req.url
 	parsed = urllib.parse.parse_qs(url)
 	print(parsed)
-	auth_token = parsed['http://9a2a2130.ngrok.io/authorize?account_linking_token'][0]
+	auth_token = parsed['http://e0a1aaf0.ngrok.io/authorize?account_linking_token'][0]
 	redirect_url = parsed['redirect_uri'][0]
 	return render_template('auth.html', redirect_url=redirect_url)
 	#process_auth(req, auth_token, redirect_url)
@@ -79,7 +79,7 @@ def success():
 	req = request
 	url = req.url
 	parsed = urllib.parse.parse_qs(url)
-	psid = parsed.get('http://9a2a2130.ngrok.io/success?psid')[0]
+	psid = parsed.get('http://e0a1aaf0.ngrok.io/success?psid')[0]
 	print(psid)
 	message = "Money transfer successfull"
 	bot = Bot("EAAb3lzmGmJcBAPTUWrJtcsGTzoHhVHzWpwUbXTHFLZBKJ79XDKZCLflSEkesDeNEcQOOF71Ru1dhvvignYf7Pza7SYxKIhCmMxOF84QrTZAa8igyNp3zCXM3ZC0O8CLS5kx73DZBgZAO4hjrF4ZB96qYWDN6EeUd4QGUGxaHxmdFgZDZD")

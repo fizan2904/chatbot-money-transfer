@@ -35,13 +35,13 @@
         MessengerExtensions.getUserID(function success(uids) {
             var psid = uids.psid;
             var link = document.getElementById('samplelink');
-            link.href = 'http://9a2a2130.ngrok.io/success?psid=' + psid;
+            link.href = 'http://e0a1aaf0.ngrok.io/success?psid=' + psid;
         }, function error(err) {
         });
     };
     function closeView(){
         MessengerExtensions.requestCloseBrowser(function success() {
-            $.post('http://9a2a2130.ngrok.io/success', {"psid": psid})
+            $.post('http://e0a1aaf0.ngrok.io/success', {"psid": psid})
       }, function error(err) {
         	console.log(err)
       });

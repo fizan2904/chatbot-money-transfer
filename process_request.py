@@ -14,7 +14,7 @@ def fb_login_template(user_id):
 					"text":"Please login",
 					"buttons":[{
 						"type": "account_link",
-						"url": "https://9a2a2130.ngrok.io/authorize",
+						"url": "https://e0a1aaf0.ngrok.io/authorize",
 						"webview_height_ratio": "compact"
 					}]
 				}
@@ -61,7 +61,7 @@ def fb_render(user_id):
 						"title": 'Confirm transfer',
 						"buttons":[{
 							"type":"web_url",
-                    		"url":"https://9a2a2130.ngrok.io/mpin/",
+                    		"url":"https://e0a1aaf0.ngrok.io/mpin/",
                     		"title":"Yes",
                     		"webview_height_ratio": "compact",
                     		"messenger_extensions": "true"
