@@ -13,6 +13,7 @@ import json, os, requests, sys, uuid, hashlib, redis
 from datetime import datetime
 from flask import Flask, request, make_response, render_template, send_from_directory, redirect
 from flask_debugtoolbar import DebugToolbarExtension
+from cred import cred
 
 try:
     import apiai
@@ -32,6 +33,8 @@ def webhook():
 	req = request.get_json(silent=True, force=True)
 	if(req.get('result').get('action') == "confirm_transfer"):
 		return render_template('mpin.html')
+	if(req.get('result').get('action') == "login"):
+		return render_template('auth.html')
 	res = process_request(req)
 	res = json.dumps(res, indent=4)
 	r = make_response(res)  
@@ -44,26 +47,11 @@ def auth():
 	url = req.url
 	parsed = urllib.parse.parse_qs(url)
 	print(parsed)
-	auth_token = parsed['http://e0a1aaf0.ngrok.io/authorize?account_linking_token'][0]
+	auth_token = parsed[cred['http_url'] + '/authorize?account_linking_token'][0]
 	redirect_url = parsed['redirect_uri'][0]
 	return render_template('auth.html', redirect_url=redirect_url)
 	#process_auth(req, auth_token, redirect_url)
 
-@app.route('/login', methods=["POST"])
-def login():
-	username = request.form.get('username')
-	password = request.form.get('password')
-	redirect_url = request.form.get('redirect_url')+ '&authorization_code='+ username
-	print(redirect_url)
-	if(password == "fizan"):
-		print("---------------")
-		print(redirect_url)
-		r = requests.get(redirect_url)
-		if(r.status_code == 200):
-			return render_template('success.html')
-	else:
-		return "Request did not contain redirect_uri and username in the query string"
-	
 @app.route('/mpin/')
 def mpin():
 	return render_template('mpin.html')
@@ -79,7 +67,7 @@ def success():
 	req = request
 	url = req.url
 	parsed = urllib.parse.parse_qs(url)
-	psid = parsed.get('http://e0a1aaf0.ngrok.io/success?psid')[0]
+	psid = parsed.get(cred['http_url']+'/success?psid')[0]
 	print(psid)
 	message = "Money transfer successfull"
 	bot = Bot("EAAb3lzmGmJcBAPTUWrJtcsGTzoHhVHzWpwUbXTHFLZBKJ79XDKZCLflSEkesDeNEcQOOF71Ru1dhvvignYf7Pza7SYxKIhCmMxOF84QrTZAa8igyNp3zCXM3ZC0O8CLS5kx73DZBgZAO4hjrF4ZB96qYWDN6EeUd4QGUGxaHxmdFgZDZD")

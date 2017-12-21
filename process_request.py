@@ -1,7 +1,7 @@
 import requests, redis
 import json
 from flask import render_template
-
+from cred import cred
 r = redis.Redis(host='localhost')
 
 def fb_login_template(user_id):
@@ -14,7 +14,7 @@ def fb_login_template(user_id):
 					"text":"Please login",
 					"buttons":[{
 						"type": "account_link",
-						"url": "https://e0a1aaf0.ngrok.io/authorize",
+						"url": cred['https_url']+"/authorize",
 						"webview_height_ratio": "compact"
 					}]
 				}
@@ -61,7 +61,7 @@ def fb_render(user_id):
 						"title": 'Confirm transfer',
 						"buttons":[{
 							"type":"web_url",
-                    		"url":"https://e0a1aaf0.ngrok.io/mpin/",
+                    		"url":cred["https_url"]+"/mpin/",
                     		"title":"Yes",
                     		"webview_height_ratio": "compact",
                     		"messenger_extensions": "true"
